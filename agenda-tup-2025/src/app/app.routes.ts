@@ -7,7 +7,6 @@ import { RegisterPage } from './pages/register/register';
 import { onlyPublicGuard } from './guards/only-public-guard-guard';
 import { onlyUserGuard } from './guards/only-user-guard-guard';
 import { NewEditContact } from './pages/new-edit-contact/new-edit-contact';
-import { GroupsListPage } from './pages/groups-list-page/groups-list-page';
 
 export const routes: Routes = [
     {
@@ -19,10 +18,8 @@ export const routes: Routes = [
         path: "register",
         component: RegisterPage,
         canActivate: [onlyPublicGuard]
-
     },
     {
-        // Path vacío se abre cuando la página no tiene url más que localhost
         path: "",
         component: LoggedLayout,
         canActivateChild: [onlyUserGuard],
@@ -30,21 +27,23 @@ export const routes: Routes = [
             {
                 path: "",
                 component: ContactListPage
-            }, {
+            },
+            {
                 path: "contacts/new",
                 component: NewEditContact
-            }, {
+            },
+            {
                 path: "contacts/:idContacto/edit",
                 component: NewEditContact
             },
             {
-                path: "groups",
-                component: GroupsListPage
-            },
-            {
                 path: "contacts/:id",
                 component: ContactDetailsPage
-            },
+            }
         ]
     },
+    {
+        path: "**",
+        redirectTo: ""
+    }
 ];

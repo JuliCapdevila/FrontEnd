@@ -15,31 +15,31 @@ export class NewEditContact implements OnInit {
   router = inject(Router)
   errorEnBack = false;
   idContacto = input<string>();
-  contactoBack:Contact | undefined = undefined;
+  contactoBack: Contact | undefined = undefined;
   form = viewChild<NgForm>("newContactForm")
   
   async ngOnInit() {
     if(this.idContacto()){
-      const contacto:Contact|null = await this.contactsService.getContactById(this.idContacto()!);
+      const contacto: Contact | null = await this.contactsService.getContactById(this.idContacto()!);
       if(contacto){
         this.contactoBack = contacto;
         this.form()?.setValue({
-          address: contacto.address,
-          company: contacto.company,
-          email: contacto.email,
-          firstName:contacto.firstName,
-          image:contacto.image,
-          isFavourite:contacto.isFavorite,
-          lastName: contacto.lastName,
+          address: contacto.address || '',
+          company: contacto.company || '',
+          email: contacto.email || '',
+          firstName: contacto.firstName,
+          image: contacto.image || '',
+          lastName: contacto.lastName || '',
+          isFavorite: contacto.isFavorite || false, // Corregido el nombre
           number: contacto.number
         })
       }
     }
   }
 
-  async handleFormSubmission(form:NgForm){
+  async handleFormSubmission(form: NgForm){
     this.errorEnBack = false;
-    const nuevoContacto: NewContact ={
+    const nuevoContacto: NewContact = {
       firstName: form.value.firstName,
       lastName: form.value.lastName,
       address: form.value.address,
@@ -47,12 +47,13 @@ export class NewEditContact implements OnInit {
       image: form.value.image,
       number: form.value.number,
       company: form.value.company,
-      isFavorite: form.value.isFavorite
+      description: form.value.description,
+      isFavorite: form.value.isFavorite // Corregido el nombre
     }
 
     let res;
     if(this.idContacto()){
-      res = await this.contactsService.editContact({...nuevoContacto,id:this.contactoBack!.id});
+      res = await this.contactsService.editContact({...nuevoContacto, id: this.contactoBack!.id});
     } else {
       res = await this.contactsService.createContact(nuevoContacto);
     }
@@ -61,6 +62,6 @@ export class NewEditContact implements OnInit {
       this.errorEnBack = true;
       return
     };
-    this.router.navigate(["/contacts",res.id]);
+    this.router.navigate(["/contacts", res.id]);
   }
 }

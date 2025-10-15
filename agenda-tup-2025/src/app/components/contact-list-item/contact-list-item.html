@@ -1,7 +1,47 @@
-<p>Contacto Nº {{index() +1}} {{contacto().firstName}}
-    @if(contacto().isFavorite){
-        ⭐
-    }
-    <a [routerLink]="['/contacts',contacto().id,'edit']">Editar</a>
-    <button (click)="contactsService.deleteContact(contacto().id)">Borrar</button>
-</p>
+<div class="contact-item" [class.favorite]="contacto.isFavorite">
+  <div class="contact-info">
+    <div class="contact-avatar">
+      @if (contacto.image) {
+        <img [src]="contacto.image" [alt]="contacto.firstName" class="avatar">
+      } @else {
+        <div class="avatar-placeholder">
+          {{ contacto.firstName.charAt(0) }}{{ contacto.lastName ? contacto.lastName.charAt(0) : '' }}
+        </div>
+      }
+    </div>
+    
+    <div class="contact-details">
+      <h3 class="contact-name">
+        {{ contacto.firstName }} {{ contacto.lastName }}
+        @if (contacto.isFavorite) {
+          <span class="favorite-star">⭐</span>
+        }
+      </h3>
+      <p class="contact-phone">{{ contacto.number }}</p>
+      @if (contacto.email) {
+        <p class="contact-email">{{ contacto.email }}</p>
+      }
+    </div>
+  </div>
+
+  <div class="contact-actions">
+    <button (click)="toggleFavorito()" [class.favorite]="contacto.isFavorite" class="btn-favorite" title="Marcar como favorito">
+      <span class="btn-text">{{ contacto.isFavorite ? 'Quitar' : 'Favorito' }}</span>
+    </button>
+
+    <button (click)="verContacto()" class="btn-view" title="Ver detalles">
+      <span class="btn-icon">📓</span>
+      <span class="btn-text">Info</span>
+    </button>
+
+    <button (click)="editarContacto()" class="btn-edit" title="Editar contacto">
+      <span class="btn-icon">✏️</span>
+      <span class="btn-text">Editar</span>
+    </button>
+
+    <button (click)="borrarContacto()" class="btn-delete" title="Eliminar contacto">
+      <span class="btn-icon">🗑️</span>
+      <span class="btn-text">Borrar</span>
+    </button>
+  </div>
+</div>

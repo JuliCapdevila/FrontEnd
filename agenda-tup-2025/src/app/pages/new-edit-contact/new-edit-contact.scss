@@ -1,0 +1,184 @@
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+.main-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  width: 100%;
+  margin: 0;
+  background: linear-gradient(135deg, #f3f4f6, #e5e7eb);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* Tarjeta principal centrada y con degradado */
+.card {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 25px;
+  box-shadow: 0 6px 30px rgba(0, 0, 0, 0.2);
+  padding: 3rem;
+  width: 100%;
+  max-width: 500px;
+  text-align: center;
+  color: #fff;
+  animation: fadeIn 0.4s ease-in-out;
+}
+
+h2 {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  color: #ffffff;
+  font-weight: 600;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+/* Etiquetas */
+label {
+  display: block;
+  font-weight: 600;
+  color: #e5e7eb;
+  margin-bottom: 0.5rem;
+  font-size: 0.95rem;
+}
+
+/* Campos de entrada */
+input[type="text"],
+input[type="email"] {
+  width: 100%;
+  padding: 0.85rem;
+  border-radius: 12px;
+  border: none;
+  font-size: 1rem;
+  color: #1f2937;
+  background: #ffffff;
+  transition: box-shadow 0.2s;
+  box-sizing: border-box;
+  
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.4);
+  }
+}
+
+/* Estilos para el checkbox personalizado */
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 0;
+  font-weight: 600;
+  color: #e5e7eb;
+  
+  input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+    
+    &:checked ~ .checkmark {
+      background-color: #ffffff;
+      
+      &:after {
+        display: block;
+      }
+    }
+  }
+  
+  .checkmark {
+    position: absolute;
+    left: 0;
+    height: 22px;
+    width: 22px;
+    background-color: #ffffff;
+    border-radius: 6px;
+    transition: all 0.2s;
+    
+    &:after {
+      content: "";
+      position: absolute;
+      display: none;
+      left: 7px;
+      top: 3px;
+      width: 5px;
+      height: 10px;
+      border: solid #667eea;
+      border-width: 0 2px 2px 0;
+      transform: rotate(45deg);
+    }
+  }
+  
+  &:hover input ~ .checkmark {
+    background-color: #f0f0f0;
+    transform: scale(1.05);
+  }
+}
+
+button {
+  background: #ffffff;
+  color: #4f46e5;
+  border: none;
+  border-radius: 12px;
+  padding: 0.9rem;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+  margin-top: 0.5rem;
+  
+  &:hover:not(:disabled) {
+    background: #f0f0f0;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.3);
+  }
+  
+  &:disabled {
+    background: #9ca3af;
+    color: #fff;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+  }
+}
+
+.error {
+  color: #ffb4b4;
+  font-size: 0.85rem;
+  text-align: left;
+  margin-top: 0.3rem;
+  animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+  from { 
+    opacity: 0; 
+    transform: translateY(-3px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0); 
+  }
+}
+
+@media (max-width: 600px) {
+  .card {
+    padding: 2rem;
+    margin: 1rem;
+  }
+  
+  h2 {
+    font-size: 1.7rem;
+  }
+}

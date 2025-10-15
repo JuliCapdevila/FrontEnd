@@ -1,18 +1,148 @@
-#container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1rem;
-  margin: 1rem auto;
-  width: min-content;
+// #container {
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+//   gap: 1rem;
+//   margin: 1rem auto;
+//   width: min-content;
 
-  div {
-    margin: 0.5rem 0;
-  }
+//   div {
+//     margin: 0.5rem 0;
+//   }
+// }
+
+// form {
+//   .error {
+//     color: var(--color-error);
+//   }
+// }
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+.main-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; 
+  width: 100vw; 
+  margin: 0;
+  background: linear-gradient(135deg, #f3f4f6, #e5e7eb);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  overflow: hidden; 
+}
+
+/* Tarjeta principal centrada y con degradado */
+.card {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 25px;
+  box-shadow: 0 6px 30px rgba(0, 0, 0, 0.2);
+  padding: 3rem;
+  width: 100%;
+  max-width: 480px;
+  text-align: center;
+  color: #fff;
+  animation: fadeIn 0.4s ease-in-out;
+}
+
+h1 {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  color: #ffffff;
 }
 
 form {
-  .error {
-    color: var(--color-error);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Etiquetas y entradas */
+label {
+  display: block;
+  font-weight: 600;
+  text-align: left;
+  color: #e5e7eb;
+  margin-bottom: 0.4rem;
+}
+
+input {
+  width: 100%;
+  padding: 0.85rem;
+  border-radius: 12px;
+  border: none;
+  font-size: 1rem;
+  color: #1f2937;
+  background: #ffffff;
+  transition: box-shadow 0.2s;
+  box-sizing: border-box;
+}
+
+input:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.4);
+}
+
+/* Botón principal */
+button {
+  background: #ffffff;
+  color: #4f46e5;
+  border: none;
+  border-radius: 12px;
+  padding: 0.9rem;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+button:hover {
+  background: #f0f0f0;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.3);
+}
+
+button:disabled {
+  background: #9ca3af;
+  color: #fff;
+  cursor: not-allowed;
+}
+
+/* Enlaces */
+p {
+  margin-top: 0.5rem;
+  color: #f9fafb;
+  font-size: 0.95rem;
+}
+
+a {
+  color: #ffffff;
+  text-decoration: underline;
+  font-weight: 600;
+}
+
+a:hover {
+  opacity: 0.8;
+}
+
+/* Error */
+.error {
+  color: #ffb4b4;
+  font-size: 0.9rem;
+  text-align: left;
+  margin-top: 0.3rem;
+  animation: fadeIn 0.3s ease-in;
+}
+
+/* Animación */
+@keyframes fadeIn {
+  from { 
+    opacity: 0; 
+    transform: translateY(-3px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0); 
   }
 }

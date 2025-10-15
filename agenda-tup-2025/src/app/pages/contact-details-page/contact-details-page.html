@@ -1,1 +1,68 @@
-<p>contact-details-page works!</p>
+<div class="main-container">
+  <div class="card">
+    @if (isLoading) {
+      <div class="loading">
+        <div class="spinner"></div>
+        <p>Cargando información del contacto...</p>
+      </div>
+    } @else if (error || !contacto) {
+      <div class="error-state">
+        <h2>Error</h2>
+        <p>No se pudo cargar la información del contacto</p>
+        <button (click)="volverALista()" class="btn-secondary">Volver a contactos</button>
+      </div>
+    } @else {
+      <div class="contact-header">
+        @if (contacto.image) {
+          <img [src]="contacto.image" [alt]="contacto.firstName" class="contact-image">
+        } @else {
+          <div class="contact-image-placeholder">
+            {{ contacto.firstName.charAt(0) }}{{ contacto.lastName ? contacto.lastName.charAt(0) : '' }}
+          </div>
+        }
+
+        <h2>{{ contacto.firstName }} {{ contacto.lastName }}</h2>
+        @if (contacto.isFavorite) {
+          <span class="favorite-badge">⭐Favorito</span>
+        }
+      </div>
+
+      <div class="contact-details">
+        <div class="detail-group">
+          <label>Nombre</label>
+          <p class="detail-value">{{ contacto.firstName }}</p>
+        </div>
+
+        <div class="detail-group">
+          <label>Apellido</label>
+          <p class="detail-value">{{ contacto.lastName || '-' }}</p>
+        </div>
+
+        <div class="detail-group">
+          <label>Teléfono</label>
+          <p class="detail-value">{{ contacto.number }}</p>
+        </div>
+
+        <div class="detail-group">
+          <label>Email</label>
+          <p class="detail-value">{{ contacto.email || '-' }}</p>
+        </div>
+
+        <div class="detail-group">
+          <label>Dirección</label>
+          <p class="detail-value">{{ contacto.address || '-' }}</p>
+        </div>
+
+        <div class="detail-group">
+          <label>Compañía</label>
+          <p class="detail-value">{{ contacto.company || '-' }}</p>
+        </div>
+      </div>
+
+      <div class="action-buttons">
+        <button (click)="editarContacto()" class="btn-primary">Editar Contacto</button>
+        <button (click)="volverALista()" class="btn-secondary">Volver a Contactos</button>
+      </div>
+    }
+  </div>
+</div>

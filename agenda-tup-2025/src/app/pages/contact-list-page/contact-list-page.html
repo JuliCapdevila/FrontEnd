@@ -1,7 +1,25 @@
-<h1>Contactos</h1>
-@for (contacto of contactsService.contacts; track $index) {
-<app-contact-list-item [contacto]="contacto" [index]="$index" />
-} @empty {
-<p>No hay contactos, <a routerLink="/contacts/new">agregá uno</a>.</p>
-}
-<a routerLink="/contacts/new">Nuevo contacto +</a>
+<main class="main-container">
+  <h1>Contactos</h1>
+
+  <input
+    type="text"
+    placeholder="🔍 Buscar contacto..."
+    (input)="onSearch($event)"
+    class="search-bar"
+  />
+   <section class="contact-list">
+    @for (contacto of filteredContacts; track $index) {
+      <app-contact-list-item
+        [index]="$index"
+        [contacto]="contacto"
+        (favoriteToggled)="onFavoriteToggled()">
+      </app-contact-list-item>
+    } @empty {
+      <p class="no-contacts">
+        No se encontraron contactos.
+      </p>
+    }
+  </section>
+
+  <a routerLink="/contacts/new" class="new-contact-btn">Nuevo contacto +</a>
+</main>

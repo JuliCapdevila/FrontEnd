@@ -1,22 +1,54 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { ContactListItem } from '../../components/contact-list-item/contact-list-item';
-import { Auth } from '../../services/auth';
 import { ContactsService } from '../../services/contacts-service';
-import { FormsModule } from '@angular/forms';
+import { Contact } from '../../interfaces/contacto';
+import { RouterLink } from '@angular/router';
+import { ContactListItem } from "../../components/contact-list-item/contact-list-item";
 
 @Component({
   selector: 'app-contact-list-page',
-  imports: [RouterModule,ContactListItem, FormsModule],
+  standalone: true,
   templateUrl: './contact-list-page.html',
-  styleUrl: './contact-list-page.scss'
+  styleUrls: ['./contact-list-page.scss'],
+  imports: [RouterLink, ContactListItem]
 })
 export class ContactListPage implements OnInit {
-  ngOnInit(): void {
-    this.contactsService.getContacts();
+  contactsService = inject(ContactsService);
+  filteredContacts: Contact[] = [];
+
+  async ngOnInit() {
+    await this.loadContacts();
+    this.contactsService.contactsChanged.subscribe(() => {
+      this.filteredContacts = [...this.contactsService.contacts];
+    });
   }
 
-  authService = inject(Auth)
-  contactsService = inject(ContactsService)
+  async loadContacts() {
+    try {
+      await this.contactsService.getContacts();
+      this.filteredContacts = [...this.contactsService.contacts];
+      console.log(this.filteredContacts);
+    } catch (error) {
+      console.error('Error al cargar los contactos:', error);
+      this.filteredContacts = [];
+    }
+  }
 
+  onSearch(event: Event) {
+    const searchTerm = (event.target as HTMLInputElement).value.toLowerCase().trim();
+
+    if (!searchTerm) {
+      this.filteredContacts = [...this.contactsService.contacts];
+      return;
+    }
+
+    this.filteredContacts = this.contactsService.contacts.filter(contact =>
+      contact.firstName?.toLowerCase().includes(searchTerm) ||
+      contact.lastName?.toLowerCase().includes(searchTerm) ||
+      contact.number?.toString().includes(searchTerm) ||
+      contact.email?.toLowerCase().includes(searchTerm)
+    );
+  }
+  onFavoriteToggled() {
+    this.filteredContacts = [...this.filteredContacts];
+  }
 }

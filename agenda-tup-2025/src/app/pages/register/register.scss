@@ -1,1 +1,202 @@
 @use "./../../../../public/styles/forms-pages.scss";
+
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+.main-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  width: 100%;
+  margin: 0;
+  padding: 1rem;
+  background: linear-gradient(135deg, #f3f4f6, #e5e7eb);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  box-sizing: border-box;
+}
+
+.card {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 25px;
+  box-shadow: 0 6px 30px rgba(0, 0, 0, 0.2);
+  padding: 2rem;
+  width: 100%;
+  max-width: 480px;
+  min-width: 280px;
+  text-align: center;
+  color: #fff;
+  animation: fadeIn 0.4s ease-in-out;
+  box-sizing: border-box;
+}
+
+h1 {
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  margin-bottom: 1.5rem;
+  color: #ffffff;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+label {
+  display: block;
+  font-weight: 600;
+  text-align: left;
+  color: #e5e7eb;
+  margin-bottom: 0.4rem;
+  font-size: clamp(0.9rem, 2.5vw, 1rem);
+}
+
+input {
+  width: 100%;
+  padding: 0.85rem;
+  border-radius: 12px;
+  border: none;
+  font-size: clamp(0.9rem, 2.5vw, 1rem);
+  color: #1f2937;
+  background: #ffffff;
+  transition: box-shadow 0.2s;
+  box-sizing: border-box;
+}
+
+input:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.4);
+}
+
+button {
+  background: #ffffff;
+  color: #4f46e5;
+  border: none;
+  border-radius: 12px;
+  padding: 0.9rem;
+  font-size: clamp(0.9rem, 2.5vw, 1rem);
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+  width: 100%;
+}
+
+button:hover {
+  background: #f0f0f0;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.3);
+}
+
+button:disabled {
+  background: #9ca3af;
+  color: #fff;
+  cursor: not-allowed;
+}
+
+p {
+  margin-top: 0.5rem;
+  color: #f9fafb;
+  font-size: clamp(0.85rem, 2.5vw, 0.95rem);
+}
+
+a {
+  color: #ffffff;
+  text-decoration: underline;
+  font-weight: 600;
+}
+
+a:hover {
+  opacity: 0.8;
+}
+
+.error {
+  color: #ffb4b4;
+  font-size: clamp(0.8rem, 2.5vw, 0.9rem);
+  text-align: left;
+  margin-top: 0.3rem;
+  animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+  from { 
+    opacity: 0; 
+    transform: translateY(-3px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0); 
+  }
+}
+
+@media (max-width: 480px) {
+  .main-container {
+    padding: 0.5rem;
+    align-items: flex-start;
+    padding-top: 2rem;
+  }
+  
+  .card {
+    padding: 1.5rem;
+    border-radius: 20px;
+    margin: 0.5rem;
+  }
+  
+  form {
+    gap: 1rem;
+  }
+  
+  input {
+    padding: 0.75rem;
+  }
+  
+  button {
+    padding: 0.8rem;
+  }
+}
+
+@media (max-width: 320px) {
+  .card {
+    padding: 1rem;
+    border-radius: 15px;
+  }
+  
+  h1 {
+    margin-bottom: 1rem;
+  }
+  
+  form {
+    gap: 0.8rem;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  .card {
+    max-width: 420px;
+    padding: 2.5rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  .card {
+    max-width: 500px;
+    padding: 3rem;
+  }
+}
+
+@media (max-height: 600px) and (orientation: landscape) {
+  .main-container {
+    align-items: flex-start;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+  
+  .card {
+    padding: 1.5rem;
+  }
+  
+  form {
+    gap: 1rem;
+  }
+}
