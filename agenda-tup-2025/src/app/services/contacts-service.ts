@@ -8,14 +8,40 @@ import { Subject } from 'rxjs';
 })
 export class ContactsService {
   favorite(id: number) {
-    throw new Error('Method not implemented.');
-  }
+  return this.favoriteContact(id);
+}
+  
   authService = inject(Auth);
   readonly URL_BASE = "https://agenda-api.somee.com/api/contacts";
 
   contacts: Contact[] = [];
   contactsChanged = new Subject<void>();
 
+  async favoriteContact(id: number | string): Promise<boolean> {
+  try {
+    const res = await fetch(this.URL_BASE + "/" + id + "/favorite", {
+      method: "POST",
+      headers: {
+        Authorization: "Bearer " + this.authService.token
+      }
+    });
+    
+    if (!res.ok) {
+      console.error('Error al marcar como favorito');
+      return false;
+    }
+    const updatedContact: Contact = await res.json();
+    this.contacts = this.contacts.map(contacto => 
+      contacto.id === updatedContact.id ? updatedContact : contacto
+    );
+    
+    this.contactsChanged.next();
+    return true;
+  } catch (error) {
+    console.error('Error de red al marcar como favorito:', error);
+    return false;
+  }
+}
   async createContact(nuevoContacto: NewContact) {
     const res = await fetch(this.URL_BASE, {
       method: "POST",
@@ -112,22 +138,7 @@ export class ContactsService {
   refreshContacts(): void {
     this.contactsChanged.next();
   }
-  async favoriteContact(id:number | String){
-    const res = await fetch(this.URL_BASE + "/" + id + "/favorite", {
-      method: "POST",
-      headers: {
-        Authorization: "Bearer " + this.authService.token
-      }
-    });
-    if (!res.ok) return;
-    this.contacts = this.contacts.map(contacto => {
-      if(contacto.id === id){
-        return {...contacto, isFavorite: !contacto.isFavorite};
-      }
-      return contacto;
-    });
-    return true;
-  }
+
   async updateContact(id: number, updatedContact: Contact): Promise<Contact | null> {
     try {
       const res = await fetch(`${this.URL_BASE}/${id}`, {
